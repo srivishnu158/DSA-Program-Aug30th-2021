@@ -2,6 +2,7 @@
 class  Sample
 {
 	/*
+
 		Time Complexity => O(nlogn)
 		Space Complexity => O(n)
 	*/
@@ -13,6 +14,8 @@ class  Sample
 
 	private void divide(int[] arr)
 	{
+
+
 		if(arr.length == 1)
 		{
 			return;
@@ -37,6 +40,13 @@ class  Sample
 		int rightIndex = 0;
 		int index = 0;
 
+		/*
+			L{2,5} R{4,6} => rightIndex = 0 ,leftIndex = 0 , index = 0
+
+			=> sourceArray {2,} rightIndex = 0 ,leftIndex = 1 , index = 1 
+			=> sourceArray {2,4} rightIndex = 1 ,leftIndex = 1 , index = 2 
+			=> sourceArray {2,4,5} rightIndex = 1 ,leftIndex = 2 , index = 3 
+		*/
 		while(leftIndex < leftArr.length && rightIndex < rightArr.length)
 		{
 			if(leftArr[leftIndex] < rightArr[rightIndex])
@@ -59,6 +69,12 @@ class  Sample
 			leftIndex++;
 		}
 
+		/*
+		L {2,5}  R{4,6}
+		=> sourceArray {2,4,5} rightIndex = 1 ,leftIndex = 2 ,
+		 index = 3 
+		=> sourceArray {2,4,5,6}
+		*/
 		while(rightIndex < rightArr.length)
 		{
 			sourceArray[index] = rightArr[rightIndex];

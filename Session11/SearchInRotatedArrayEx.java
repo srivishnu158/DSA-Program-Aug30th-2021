@@ -2,7 +2,7 @@ class Sample
 {
 
 	
-	public int findRotationIndex(int[] arr)
+	private int findRotationIndex(int[] arr)
 	{
 			int start = 0;
 			int end = arr.length - 1;
@@ -48,7 +48,7 @@ class Sample
 	}
 
 
-	public int search(int[] arr, int start , int end , int target)
+	private int search(int[] arr, int start , int end , int target)
 	{
 		 while(start <= end)
 		 {
@@ -114,7 +114,7 @@ public class SearchInRotatedArrayEx
 	{
 
 		Sample s = new Sample();
-		int[] arr = {2,1};
+		int[] arr = {3,4,5,1,2};
 
 		int iterationApproch = s.iterationApproch(arr,2);
 		System.out.println("[iterationApproch] Index of 2 => "+iterationApproch);

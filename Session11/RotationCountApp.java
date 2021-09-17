@@ -55,7 +55,7 @@ class Sample
 
 
 	/*
-			Binary Search With Recursion 
+			Binary Search With Iteration 
 			TimeComplexity : O(logn)
 			SpaceComplexity : O(1)
 	*/

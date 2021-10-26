@@ -6,6 +6,7 @@ import java.util.LinkedList;
 // 0 -> 10
 // 1 -> 20
 
+
 //List<Integer> buckets[] = {...}
 // 0 -> List1
 // 1 -> List2

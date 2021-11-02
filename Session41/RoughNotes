@@ -1,0 +1,183 @@
+Input: 
+String strings= ["eat","tea","tan","ate","nat","bat"]
+
+"aet" = ["eat","ate","tea"]  
+
+"ant" = ["tan","nat"] 
+
+"bat" = ["bat"] 
+
+List<List<String>> [ ["eat","ate","tea"], ["tan","nat"] ,  ["bat"] ]
+
+Map<String, List<String> >
+
+	n
+		* String Length  k
+		* klogk
+
+	Time Complexity  : nklogk
+	Space Complexity : O(n)
+
+
+*************************
+
+
+String strings= ["abc","cba","bac","dad","add"]
+
+[ [ "abc" , "cba" , "bac"], ["dad","add"]]
+
+
+"abc"
+
+'a' - 'a' = 97 - 97 = 0
+
+'b' - 'a' = 98 - 97 = 1
+
+'c' - 'a' = 99 - 97 = 2
+
+
+"cab"
+
+
+'c' - 'a' = 99 - 97 = 2
+
+'a' - 'a' = 97 - 97 = 0
+
+'b' - 'a' = 98 - 97 = 1
+
+
+"dad"
+'d' - 'a' = 100 - 97 = 3
+'a' - 'a' = 97 - 97 = 0
+'d' - 'a' = 100 - 97 = 3
+
+***************************
+
+["abc","bcd","acef","xyz","az","ba","a","z"]
+
+a -> b -> c -> .....> x -> y -> z
+
+ab -> bc -> cd ->...... yz -> za -> ab -> bc
+
+abc -> bcd -> cde ...... xyz -> yza -> zab
+
+
+az -> ba
+
+a->b
+b->a = 25
+
+abc => xyz
+
+c->b
+b->a
+
+abc => bcd => cde
+
+az -> a ---- z  = 25 
+ba -> b ---- a  = 25
+
+startingChar = 'a'
+abc -> a -> a : 0 : a -> b 1: a->c : 2 => 012
+
+bcd -> b -> b : 0 : b -> c 1: b->d : 2 => 012
+
+
+"abc"
+		char sch = s.charAt(0); s ='a'
+
+	   		=> (s.charAt(i) - sch + 26) % 26
+			=> a - a = 97 - 97 = 0
+			=> b - a = 98 - 97 = 1
+			=> c - a = 99 - 97 = 2  => 0|1|2|
+ 
+
+"zab"
+	   		char sch = s.charAt(0); s ='z'
+
+	   		=> (s.charAt(i) - sch + 26) % 26
+			=> z - z = 121 - 121 = (0 + 26) % 26 = 26%26 = 0
+			=> a - z = 97 - 121 = (-25+ 26) % 26 = 1 % 26 = 1
+			=> b - z = 98 - 121 = -24  = (-24+26)%26 =  2 %26 = 2 => 012
+
+
+
+"am"    
+	char sch = s.charAt(0); s ='a'
+
+		=> (s.charAt(i) - sch + 26) % 26
+
+		=>  (a - a + 26) % 26 = 0
+		=>  (m - a + 26) % 26 = (109-98 + 26) % 26 = (12 + 26)%26 = 12
+		=> 0|12|
+
+		Time Complexity : O(nk)
+			Map<String, List<String> > .... 
+			for(..given array...)
+				{
+					for(each String of charecter -- iterate)
+						{
+
+						}
+				}
+		Space Complexity : O(n)
+
+
+
+
+[ ["abc" , "bcd" ,"xyz"] , ["az","ba"], ["a","z"],["acef"]]
+
+"abc" 
+
+char helper = 'a'
+char[] arr = new char[26]; ['a','b','c',---- null] => "abc" => abc
+
+b - a = 1
+
+c- a = 2
+
+
+"bcd" 
+
+char helper = 'b' => s.charAt[i] - helper
+char[] arr = new char[26]; ['a','b','c',---- null] => "abc" => abc
+ b - b = 0
+ c - b = 98 - 99 = 1
+ d - b = 98 - 100 = 2
+
+ *************************
+
+ "srinu - namp  - al -li"
+
+
+Set<Character> , maxLength = 0
+
+
+srinu,
+	maxLength = 5
+resetSet 
+
+namp
+	maxLength = 5
+resetSet
+
+al 
+	maxLength = 5
+	resetSet
+   
+  li
+  	maxLength = 5
+	resetSet
+
+
+
+
+
+
+
+
+
+
+
+
+	

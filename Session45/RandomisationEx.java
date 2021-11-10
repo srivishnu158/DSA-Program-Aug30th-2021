@@ -27,12 +27,12 @@ public class RandomisationEx
 
 		int count  = 1;
 
-		while(count <= samplesize)
+		while(count <= samplesize+7) // +7 as we take 10007 as modular
 		{
 			int current = (a * xseed + c)%modular;
 		// System.out.print(current + "-> "  ); Uncomment if you would like to check periodic for lower inputs
 
-			if(current <= (samplesize+7)) // +7 as we take 10007 as modular
+			if(current < (samplesize)) 
 			{
 					set.add(current);
 			}

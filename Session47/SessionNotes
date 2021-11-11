@@ -1,0 +1,191 @@
+ Solution 1 : LinkedList
+
+ Cache Size 2:
+
+ size = 0
+ capacity = 2
+
+Time Complexity add :
+		If the element is presented or not => linearSearch O(n)
+
+TimeComplexity get:
+	    If the element is presented or not => linearSearch O(n)
+
+
+ Always add new Elements at head position
+
+ 	add(1,10)	 size :1 
+ 			"1->10"
+
+ 	add(2,20) size :2 
+ 			2->20 -----	1->10 
+
+ 		get(1) 2->20 -----	1->10  size:2
+
+ 				 2->20 (Remove Node(1))
+
+				1->10 ----- 2->20 (Add(node1))
+
+
+	add(3,30) 
+
+ 			3 -> 30 ---- 1->10 ----- 2->20 size:3
+
+ 				size > capacity (remove tail then reduce size)
+
+ 				3->30 ---- 1->10 (size:2)
+
+
+
+ 	add(4,40)  3->30 ---- 1->10
+
+ 			size > capacity (remove tail then reduce size)
+ 			4->40 ---- 3->30 ---- 1->10
+
+ 			4->40 ---- 3->30 (size:2)
+
+
+ 	add(3,35)  4->40 ---- 3->30
+
+ 			  4->40 ---- 3->35 (Update the value)
+
+ 			  4->40 (removeTheNode 3-35)
+
+ 			  3-35 --- 4->40 (add to Head)
+
+
+************************
+
+ Solution 2 : 
+ Map<key, Node> + LinkedList ( As we don't have track of prevNode 
+ 								in worst case results to O(n) time Complexity)
+
+
+Time Complexity add : 
+		 add(key,value)
+		 		seach key in map => O(1)
+		 			Node addr = map.get(1); O(1)
+
+		
+
+
+TimeComplexity get:
+		  get(key)
+		  			seach key in map => O(1)
+		  				Node addr = map.get(1); O(1)
+		  				 	as we have addr think about operating on LinkedList. O(1)
+
+get(3)  4->40 ---- 3->30 ---- 5 -> 50 [ Assume CacheSize : 3 ]
+
+				Node node3Addr = map.get(3);
+
+
+					4->40 --- 5 -> 50 remove(node3) 
+						*** prevNode addr mapped to currentNode next addr
+						** Question is how do we know prevNode ?  O(n)
+
+					3->30 ---- 4->40 --- 5 -> 50 (move node3 to head)
+
+
+ Always add new Elements at head position
+
+ 	add(1,10)	 size :1 
+ 			"1->10" 
+
+ 	add(2,20) size :2 
+ 			2->20 -----	1->10 
+
+ 		get(1) 2->20 -----	1->10  size:2
+
+ 				 2->20 (Remove Node(1))
+
+				1->10 ----- 2->20 (Add(node1))
+
+					map :
+							1 -> node(1)
+							2 -> node(2)
+
+
+	add(3,30) 
+
+ 			3 -> 30 ---- 1->10 ----- 2->20 size:3
+
+ 				size > capacity (remove tail then reduce size)
+
+ 				3->30 ---- 1->10 (size:2)
+
+
+
+ 	add(4,40)  3->30 ---- 1->10
+
+ 			size > capacity (remove tail then reduce size)
+ 			4->40 ---- 3->30 ---- 1->10
+
+ 			4->40 ---- 3->30 (size:2)
+
+
+ 	add(3,35)  4->40 ---- 3->30
+
+ 			  4->40 ---- 3->35 (Update the value)
+
+ 			  4->40 (removeTheNode 3-35)
+
+ 			  3-35 --- 4->40 (add to Head)
+
+
+************************
+
+Solution 3 : 
+ Map<key, DLLNode> + DoubleLinkedList
+
+ 			We can have track of prevNode so that we can achieve in O(1)
+
+ ********************
+ 	LRU cache (3)
+
+	add(1,10)
+			 null <- 1 -> 10 -> null
+
+			 add(2,20)
+
+			 		null <- 2 -> 20 --- 1 -> 10 -> null
+
+			 		
+
+			 			       get(1)
+			 			       			2 -> 20
+
+			 			       			null <- 1->10 --- 2->20 --> null
+
+
+
+			 			 head ->
+			 			 		MRU (head.next)
+			 			 		LRU (tail.prev)
+			 			 <-  tail
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 			  	  

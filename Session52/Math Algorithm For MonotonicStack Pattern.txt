@@ -1,0 +1,83 @@
+
+input[] : 29 -> 20 -> 19 -> 21 -> 30 -> 29 -> 30
+
+
+Do the backTracking so that we can reuse Subproblem results.
+Check does the currentElement is less than nextElement (or) not
+If yes then simply take out put as 1 
+	Else take the result of next element  repeat the process.
+
+Just to handle duplicate max value make sure
+	 you make use of maxElement is each window size from left to right
+	 	 as auxulary variable.
+
+input[] : 29 -> 20 -> 19 -> 21 -> 30 -> 29 -> 30[0] max = 30
+										      <------
+
+										   29 < 30 just take day 1 as diff
+		 29 -> 20 -> 19 -> 21 -> 30 -> 29[1] -> 30[0] max = 30
+									   <-------------
+
+
+	     						30 >= 30  just skip the current Iteration 
+		 29 -> 20 -> 19 -> 21 -> 30 -> 29[1] -> 30[0] max = 30
+								   <------------------
+
+							30 >= 30  just skip the current Iteration 
+		 29 -> 20 -> 19 -> 21 -> 30[0] -> 29[1] -> 30[0] max = 30
+								  <----------------------
+
+
+							21 < 30 just take day 1 as diffjust skip the 
+							current Iteration 
+		 29 -> 20 -> 19 -> 21[1] -> 30[0] -> 29[1] -> 30[0] max = 30
+						    <-----------------------------
+
+
+
+					19 < 21 just take day 1 as diffjust skip the 
+					current Iteration 
+		 29 -> 20 -> 19[1] -> 21[1] -> 30[0] -> 29[1] -> 30[0] max = 30
+					  <--------------------------------------
+
+
+
+	    			20 > 19  so take the 19 result = 1+1 = 2days
+	    			20 > 21 So take it as 2
+		 29 -> 20[2] -> 19[1] -> 21[1] -> 30[0] -> 29[1] -> 30[0] max = 30
+			   <--------------------------------------------------
+
+
+		29 > 20  so take the 20 result = 1+2 = 3days
+	    29 > 21 So take the 21 result = 3 + 1 = 4
+	    29 > 30 so take days diff as 4
+		 29[4] -> 20[2] -> 19[1] -> 21[1] -> 30[0] -> 29[1] -> 30[0] max = 30
+			<------------------------------------------------------
+
+		Finally output is 4 -> 2 -> 1 -> 1 -> 0 -> 1 -> 0
+
+
+TimeComplexity O(2n) =  Visiting through Backward   + Visiting through Forward
+					 = O(n) + O(n) = O(2n) = O(n)
+
+
+SpaceComplexity O(n) As we are using output array to maintain size :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,13 +12,13 @@ class Graph
 			list  = new ArrayList<>(size);
 			for(int i = 0 ; i < size ; i++)
 			{
-				list.add(i,new LinkedHashSet());
+				list.add(i,new LinkedHashSet<>());
 			}
 	 }
 	
 	 public void addVertex(int v)
 	 {
-	 	list.add(v, new LinkedHashSet());
+	 	list.add(v, new LinkedHashSet<>());
 	 }
 
 	 public void removeVertex(int vy)

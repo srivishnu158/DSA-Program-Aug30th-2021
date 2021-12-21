@@ -20,7 +20,7 @@ class Node
 	 	neighbors = new ArrayList<>();
 	 }
 
-	 public String toString()
+	 public void printVertex()
 	 {
 
 	 		System.out.println();
@@ -33,7 +33,6 @@ class Node
 	 	 }
 	 	 	 		System.out.print("null");
 
-	 	 return "";
 	 }
 
 }
@@ -97,14 +96,7 @@ public class CloneGraphApp
 
 		for(Map.Entry<Integer,Node> me : map.entrySet())
 		{
-			System.out.println();
-			System.out.print(me.getKey()+ "["+me.getValue().hashCode() +"] => ");
-			for(Node n : me.getValue().neighbors)
-			{
-				
-					System.out.print(n.val+"["+n.hashCode()+" ] ");
-				
-			}
+			me.getValue().printVertex();
 		}
 
 		CloneGraph cg = new CloneGraph();
@@ -121,7 +113,7 @@ public class CloneGraphApp
 			if(!visited.contains(vNode))
 			{
 				visited.add(vNode);
-				System.out.print(vNode);
+				vNode.printVertex();
 				for(Node e : vNode.neighbors)
 				{
 					queue.add(e);

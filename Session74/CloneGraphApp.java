@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.Stack;
+import java.util.LinkedHashSet;
 
 
 class Node
@@ -43,7 +45,7 @@ class CloneGraph
 
 	/*
 	Time Complexity : O(V+E)
-	Space Complexity : O(V) ~ Creates V StackFrames Riskier
+	Space Complexity : O(V+E) ~ Creates V+E StackFrames Riskier
 	*/
 	public Node clone(Node root)
 	{
@@ -58,7 +60,7 @@ class CloneGraph
 		if(clonedMap.get(root) == null)
 				{
 		
-		clonedMap.putIfAbsent(root, new Node(root.val));
+		clonedMap.put(root, new Node(root.val));
 
 		for(Node edge : root.neighbors)
 		{
@@ -67,6 +69,97 @@ class CloneGraph
 				}
 
 		return clonedMap.get(root);
+	}
+	/*
+	Time Complexity  : O(V+E)
+	Space Complexity : O(V)
+	*/
+	public Node dfs(Node root)
+	{
+		return dfs(root, new LinkedHashMap<>());
+	}
+
+
+	public Node dfs(Node root, Map<Node,Node> clonedMap)
+	{
+		Stack<Node> stack = new Stack<>();
+		Set<Node> visited = new LinkedHashSet<>();
+		stack.push(root);
+
+		while(!stack.isEmpty())
+		{
+		Node originalNode = stack.pop();
+		if(! visited.contains(originalNode))
+			{
+			visited.add(originalNode);
+			clonedMap.putIfAbsent(originalNode, new Node(originalNode.val));
+		  for(Node nei : originalNode.neighbors)
+		  			{
+		  clonedMap.putIfAbsent(nei, new Node(nei.val));
+		  clonedMap.get(originalNode).neighbors.add(clonedMap.get(nei));
+		  stack.push(nei);
+		 			 }
+			}
+		  
+		}
+
+		return clonedMap.get(root);
+	}
+
+
+	/*
+	Time Complexity  : O(V+E)
+	Space Complexity : O(V)
+	*/
+	public Node bfs(Node root)
+	{
+		return bfs(root, new LinkedHashMap<>());
+	}
+
+
+	public Node bfs(Node root, Map<Node,Node> clonedMap)
+	{
+		Queue<Node> queue = new LinkedList<>();
+		Set<Node> visited = new LinkedHashSet<>();
+		queue.add(root);
+
+		while(!queue.isEmpty())
+		{
+		Node originalNode = queue.poll();
+		if(! visited.contains(originalNode))
+			{
+			visited.add(originalNode);
+			clonedMap.putIfAbsent(originalNode, new Node(originalNode.val));
+		  for(Node nei : originalNode.neighbors)
+		  			{
+		  clonedMap.putIfAbsent(nei, new Node(nei.val));
+		  clonedMap.get(originalNode).neighbors.add(clonedMap.get(nei));
+		  queue.add(nei);
+		 			 }
+			}
+		  
+		}
+
+		return clonedMap.get(root);
+	}
+	public void printGraph(Node current)
+	{
+		Queue<Node> queue = new LinkedList<>();
+		queue.add(current);
+		Set<Node> visited = new HashSet<>();
+		while(!queue.isEmpty())
+		{
+			Node vNode = queue.poll();
+			if(!visited.contains(vNode))
+			{
+				visited.add(vNode);
+				vNode.printVertex();
+				for(Node e : vNode.neighbors)
+				{
+					queue.add(e);
+				}
+			}
+		}
 	}
 }
 
@@ -89,7 +182,13 @@ public class CloneGraphApp
 				map.putIfAbsent(edge[ve],new Node(edge[ve]));
 
 				map.get(v).neighbors.add(map.get(edge[ve]));
-			}
+			} /*
+				 class Node
+				 {
+					int val;
+					List<Node> neighbors;
+				 }
+			*/
 			
 
 		}
@@ -102,24 +201,17 @@ public class CloneGraphApp
 		CloneGraph cg = new CloneGraph();
 		Node clonedRoot = cg.clone(map.get(1));
 
-		System.out.println(" \n\n After Clone :: Print result in BFS Traversal");
-		Node current = clonedRoot;
-		Queue<Node> queue = new LinkedList<>();
-		queue.add(current);
-		Set<Node> visited = new HashSet<>();
-		while(!queue.isEmpty())
-		{
-			Node vNode = queue.poll();
-			if(!visited.contains(vNode))
-			{
-				visited.add(vNode);
-				vNode.printVertex();
-				for(Node e : vNode.neighbors)
-				{
-					queue.add(e);
-				}
-			}
-		}
+		System.out.println(" \n\n After Clone DFS + Recursive");
+		cg.printGraph(clonedRoot);
+
+
+		System.out.println(" \n\n After Clone :: DFS Iterative");
+		Node dfsClonedRoot =cg.dfs(map.get(1));
+		cg.printGraph(dfsClonedRoot);
+
+		System.out.println(" \n\n After Clone :: BFS ");
+		Node bfsClonedRoot =cg.bfs(map.get(1));
+		cg.printGraph(bfsClonedRoot);
 
 	}
 }

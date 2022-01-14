@@ -6,14 +6,14 @@ import java.util.TreeSet;
 
 class Sample
 {
-	Map<Integer,Integer> lookUpMap = null;
-	Map<Integer,Set<Integer>> minHeap = null;
+	Map<Integer,Integer> minHeap = null;
+	Map<Integer,Set<Integer>> elementsLookUpMap = null;
 	int elementSize = 0;
 
 	public Sample()
 	{
-		lookUpMap = new TreeMap<>();
-		minHeap = new LinkedHashMap<>();
+		minHeap = new TreeMap<>();
+		elementsLookUpMap = new LinkedHashMap<>();
 	}
 
 		/*
@@ -23,29 +23,29 @@ class Sample
 	public boolean add(int element)
 	{
 		
-			minHeap.putIfAbsent(element, new TreeSet<>());
+			elementsLookUpMap.putIfAbsent(element, new TreeSet<>());
 			elementSize++;
 
-			minHeap.get(element).add(elementSize);
-			lookUpMap.put(elementSize , element);
+			elementsLookUpMap.get(element).add(elementSize);
+			minHeap.put(elementSize , element);
 
 			int currentIndex = elementSize;
 			int parentIndex = currentIndex/2;
 
-			while(currentIndex > 1 && lookUpMap.get(currentIndex)
-					< lookUpMap.get(parentIndex))
+			while(currentIndex > 1 && minHeap.get(currentIndex)
+					< minHeap.get(parentIndex))
 			{
-				int parentValue = lookUpMap.get(parentIndex);
-				int currentValue = lookUpMap.get(currentIndex);
+				int parentValue = minHeap.get(parentIndex);
+				int currentValue = minHeap.get(currentIndex);
 
-				lookUpMap.put(parentIndex,currentValue);
-				lookUpMap.put(currentIndex, parentValue);
+				minHeap.put(parentIndex,currentValue);
+				minHeap.put(currentIndex, parentValue);
 
-				minHeap.get(parentValue).remove(parentIndex);
-				minHeap.get(currentValue).remove(currentIndex);
+				elementsLookUpMap.get(parentValue).remove(parentIndex);
+				elementsLookUpMap.get(currentValue).remove(currentIndex);
 
-				minHeap.get(parentValue).add(currentIndex);
-				minHeap.get(currentValue).add(parentIndex);
+				elementsLookUpMap.get(parentValue).add(currentIndex);
+				elementsLookUpMap.get(currentValue).add(parentIndex);
 
 				currentIndex = parentIndex;
 				parentIndex = currentIndex/2;
@@ -64,8 +64,8 @@ class Sample
 	{
 
 
-		if(minHeap.get(element) == null 
-			|| minHeap.get(element).size() == 0)
+		if(elementsLookUpMap.get(element) == null 
+			|| elementsLookUpMap.get(element).size() == 0)
 		{
 			System.out.println(" Heap is Empty !!!");
 			return false;
@@ -73,16 +73,16 @@ class Sample
 
 		int rightMostIndex = elementSize;
 		elementSize--;
-		int rightMostElement = lookUpMap.get(rightMostIndex);
+		int rightMostElement = minHeap.get(rightMostIndex);
 
-	    int currentIndex = minHeap.get(element).iterator().next();
-		minHeap.get(element).remove(currentIndex);
+	    int currentIndex = elementsLookUpMap.get(element).iterator().next();
+		elementsLookUpMap.get(element).remove(currentIndex);
 
-		minHeap.get(rightMostElement).add(currentIndex);
-		minHeap.get(rightMostElement).remove(rightMostIndex);
+		elementsLookUpMap.get(rightMostElement).add(currentIndex);
+		elementsLookUpMap.get(rightMostElement).remove(rightMostIndex);
 
-		lookUpMap.remove(rightMostIndex);
-		lookUpMap.put(currentIndex,rightMostElement);
+		minHeap.remove(rightMostIndex);
+		minHeap.put(currentIndex,rightMostElement);
 
 
 		while(currentIndex <= elementSize/2)
@@ -92,14 +92,14 @@ class Sample
 
 			int minValueIndex = currentIndex;
 
-				if(lookUpMap.get(leftIndex) !=  null && 
-					lookUpMap.get(minValueIndex) > lookUpMap.get(leftIndex))
+				if(minHeap.get(leftIndex) !=  null && 
+					minHeap.get(minValueIndex) > minHeap.get(leftIndex))
 				{
 					minValueIndex = leftIndex;
 				}
 
-				if(lookUpMap.get(rightIndex) != null &&
-					lookUpMap.get(minValueIndex) > lookUpMap.get(rightIndex))
+				if(minHeap.get(rightIndex) != null &&
+					minHeap.get(minValueIndex) > minHeap.get(rightIndex))
 				{
 					minValueIndex = rightIndex;
 				}
@@ -109,20 +109,20 @@ class Sample
 					break;
 				}
 
-				Integer minChildValue = lookUpMap.get(minValueIndex);
-				Integer parentValue = lookUpMap.get(currentIndex);
+				Integer minChildValue = minHeap.get(minValueIndex);
+				Integer parentValue = minHeap.get(currentIndex);
 
 
-				lookUpMap.put(currentIndex,minChildValue);
-				lookUpMap.put(minValueIndex, parentValue);
+				minHeap.put(currentIndex,minChildValue);
+				minHeap.put(minValueIndex, parentValue);
 
 				
-				minHeap.get(minChildValue).remove(minValueIndex);
-				minHeap.get(parentValue).remove(currentIndex);
+				elementsLookUpMap.get(minChildValue).remove(minValueIndex);
+				elementsLookUpMap.get(parentValue).remove(currentIndex);
 
 
-				minHeap.get(minChildValue).add(currentIndex);
-				minHeap.get(parentValue).add(minValueIndex);
+				elementsLookUpMap.get(minChildValue).add(currentIndex);
+				elementsLookUpMap.get(parentValue).add(minValueIndex);
 
 				currentIndex = minValueIndex;
 		}
@@ -134,14 +134,14 @@ class Sample
 
 	public int peek()
 	{
-		return elementSize == 0 ? -1 : lookUpMap.get(1);
+		return elementSize == 0 ? -1 : minHeap.get(1);
 	}
 
 	public void print()
 	{
-		//lookUpMap.keySet().stream().forEach(key -> System.out.print(key+"->" +lookUpMap.get(key)+"\n"));		
+		//minHeap.keySet().stream().forEach(key -> System.out.print(key+"->" +minHeap.get(key)+"\n"));		
 		
-		System.out.println(lookUpMap.values());
+		System.out.println(minHeap.values());
 	}
 
 }
@@ -153,6 +153,12 @@ public class MinHeapLognDeletion
 		int[] input = {4,5,3,1,2};
 		Sample s = new Sample();
 
+		/*
+			Construction Of Heap
+			
+			Time Complexity  : O(nlogn)
+			Space Complexity : O(n)
+		*/
 		for(int i = 0 ; i < input.length ; i++)
 		{
 			s.add(input[i]);
